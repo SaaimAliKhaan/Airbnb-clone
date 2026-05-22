@@ -17,7 +17,7 @@ function SignUp() {
   const handleSignUp = async (e) => {
     try {
       e.preventDefault() // isse form submit hone par page reload nahi hoga 
-      let result = axios.post(serverUrl + "/api/auth/signup", {
+      let result = await axios.post(serverUrl + "/api/auth/signup", {
         name: name,
         email: email,
         password: password
