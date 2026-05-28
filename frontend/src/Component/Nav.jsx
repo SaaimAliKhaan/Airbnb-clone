@@ -12,29 +12,47 @@ import { BiBuildingHouse } from "react-icons/bi";
 import { IoBedOutline } from "react-icons/io5";
 import { GiWoodCabin } from "react-icons/gi";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
+import { AuthDataContext } from '../Context/authContext';
+import { useContext } from 'react';
+import axios from 'axios';
+
+
 
 
 
 
 
 function Nav() {
-  let[showpopup,setshowpopup] = useState(false);
+  let [showpopup, setshowpopup] = useState(false);
+  let navigate = useNavigate();
+  let{serverUrl} = useContext(AuthDataContext)
+
+  const handleLogout = async () => {
+    try{
+      let result = await axios.post(serverUrl + "/api/auth/logout", {}, { withCredentials: true })
+      console.log(result)
+    }catch(error){
+      console.log(error)
+    }
+
+  }
   return (
     <div>
-      <div className='w-[100vw] min-h-[80px] border-b-[1px] border-[#dcdcdc] px-[40px] flex items-center justify-between'>
+      <div className='w-[100vw] min-h-[80px] border-b-[1px] border-[#dcdcdc] px-[40px] flex items-center justify-between md:px-[40px]'>
 
         <div>
           <img src={logo2} alt="" className='w-[130px]' />
         </div>
 
-        <div className='w-[35%] relative'>
-          <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] 
+        <div className='w-[35%] relative hidden md:block'>
+        <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] 
             text-[17px]' placeholder='Any Where | Any Location | Any City' />
-          <button className='absolute p-[10px] rounded-[50px] bg-[red] right-[3%] top-[5px]'><FiSearch className='w-[20px] h-[20px] text-white' /></button>
-        </div>
+        <button className='absolute p-[10px] rounded-[50px] bg-[red] right-[3%] top-[5px]'><FiSearch className='w-[20px] h-[20px] text-white' /></button>
+      </div>
 
         <div className='flex items-center justify-center gap-[10px] relative '>
-          <span className='text-[18px] cursor-pointer rounded-[50px] hover:bg-[#f2f2f2] px-[8px] py-[5px]' >List your home</span>
+          <span className='text-[18px] cursor-pointer rounded-[50px] hover:bg-[#f2f2f2] px-[8px] py-[5px] hidden md:block' >List your home</span>
           <button className='px-[20px] py-[10px] flex items-center justify-center gap-[5px] border-[1px] border-[#bdbaba] rounded-[50px] hover:shadow-lg' onClick={() => setshowpopup(!showpopup)}>
             <span>
               <GiHamburgerMenu className='w-[20px] h-[20px]' />
@@ -43,22 +61,29 @@ function Nav() {
               <CgProfile className='w-[23px] h-[23px]' />
             </span>
           </button>
-          {showpopup && 
-            <div className='w-[220px] h-[250px] absolute bg-slate-50 top-[110%] right-[10%] border-[1px] border-[#aaa9a9] z-10 rounded-lg overflow-hidden'  >
+          {showpopup &&
+            <div className='w-[220px] h-[250px] absolute bg-slate-50 top-[110%] right-[3%] border-[1px] border-[#aaa9a9] z-10 rounded-lg overflow-hidden md:[10%]'  >
               <ul className='w-[100%] h-[100%] text-[17px] flex items-start justify-around flex-col py-[10px]' >
-                <li className='w-[100%] px-[15px] py-[10px] hovere:bg-[#f4f3f3]'>Login</li>
-                <li className='w-[100%] px-[15px] py-[10px] hovere:bg-[#f4f3f3]'>Logout</li>
+                <li className='w-[100%] px-[15px] py-[10px] hover:bg-[#f4f3f3] cursor-pointer' onClick={() => navigate('/login')}>Login</li>
+                <li className='w-[100%] px-[15px] py-[10px] hover:bg-[#f4f3f3] cursor-pointer' onClick={handleLogout}>Logout</li>
                 <div className='w-[100%] h-[1px] bg-[#c1c0c0]'></div>
-                <li className='w-[100%] px-[15px] py-[10px] hovere:bg-[#f4f3f3]'>List your home</li>
-              <li className='w-[100%] px-[15px] py-[10px] hovere:bg-[#f4f3f3]'>My Listings</li>
-              <li className='w-[100%] px-[15px] py-[10px] hovere:bg-[#f4f3f3]'>Check Booking</li>
-            </ul>
-          </div>}
+                <li className='w-[100%] px-[15px] py-[10px] hover:bg-[#f4f3f3] cursor-pointer'>List your home</li>
+                <li className='w-[100%] px-[15px] py-[10px] hover:bg-[#f4f3f3] cursor-pointer'>My Listings</li>
+                <li className='w-[100%] px-[15px] py-[10px] hover:bg-[#f4f3f3] cursor-pointer'>Check Booking</li>
+              </ul>
+            </div>}
         </div>
+      </div>
+      <div className='w-[100%] h-[60px] flex items-center justify-center block md:flex '>
+      <div className='w-[35%] relative block md:hidden '>
+        <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] 
+            text-[17px]' placeholder='Any Where | Any Location | Any City' />
+        <button className='absolute p-[10px] rounded-[50px] bg-[red] right-[3%] top-[5px]'><FiSearch className='w-[20px] h-[20px] text-white' /></button>
+      </div>
       </div>
 
 
-      <div className='w-[100vw] h-[85px] bg-white flex items-center justify-center cursor-pointer gap-[40px] '>
+      <div className='w-[100vw] h-[85px] bg-white flex items-center justify-start cursor-pointer gap-[40px] overflow-auto md:justify-center px-[15px]'>
         <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] '>
           <MdWhatshot className='w-[30px] h-[30px] text-black' />
           <h3>Trending</h3>
@@ -69,13 +94,13 @@ function Nav() {
           <h3>Villa</h3>
         </div>
 
-        <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] '>
-          <FaTreeCity className='w-[30px] h-[30px] text-black' />
+        <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] text-nowrap'>
+          <FaTreeCity className='w-[30px] h-[30px] text-black ' />
           <h3>Farm House</h3>
         </div>
 
-        <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] '>
-          <MdOutlinePool className='w-[30px] h-[30px] text-black' />
+        <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] text-nowrap '>
+          <MdOutlinePool className='w-[30px] h-[30px] text-black ' />
           <h3>Pool House</h3>
         </div>
 
