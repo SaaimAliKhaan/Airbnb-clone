@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { authDataContext } from '../Context/AuthContext';
 import { useContext } from 'react';
 import axios from 'axios';
+import { userDataContext } from '../Context/UserContext'; 
 
 
 
@@ -25,13 +26,14 @@ import axios from 'axios';
 
 function Nav() {
   let [showpopup, setshowpopup] = useState(false);
+  let {userData, setUserData} = useContext(userDataContext)
   let navigate = useNavigate();
   let{serverUrl} = useContext(authDataContext)
 
   const handleLogout = async () => {
     try{
       let result = await axios.post(serverUrl + "/api/auth/logout", {}, { withCredentials: true })
-      console.log(result)
+      setUserData(null)
     }catch(error){
       console.log(error)
     }
@@ -57,9 +59,14 @@ function Nav() {
             <span>
               <GiHamburgerMenu className='w-[20px] h-[20px]' />
             </span>
-            <span>
+            {userData == null && <span>
               <CgProfile className='w-[23px] h-[23px]' />
-            </span>
+            </span>} 
+            {/* ye hum curly braces isliye use kar rahe hai taki hum condition ke basis par profile icon show kar sake...agar user login hai to profile icon show hoga nahi to nahi hoga */}
+            {userData != null && <span className='w-[30px] h-[30px] bg-[#080808] text-[white] rounded-full flex items-center justify-center'>
+              {userData?.name.slice(0, 1).toUpperCase()} 
+              {/* //ye hum user ke name ka first letter upar show krenge after login */}
+            </span>}
           </button>
           {showpopup &&
             <div className='w-[220px] h-[250px] absolute bg-slate-50 top-[110%] right-[3%] border-[1px] border-[#aaa9a9] z-10 rounded-lg overflow-hidden md:[10%]'  >

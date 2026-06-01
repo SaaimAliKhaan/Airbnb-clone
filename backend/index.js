@@ -20,7 +20,7 @@ app.use(cookieParser())//token ko cookie ke andar pass krna h
 //     res.send("hello from server") //response ko send kr denge
 // })
 app.use(cors({
-    origin: "http://localhost:5174", //ye vo url hai jahan se hum request bhejenge yani frontend ka url...ye isliye hai taki backend sirf frontend se hi request accept kare aur kisi aur url se na kare...ye security ke liye bhi hai
+    origin: "http://localhost:5173", //ye vo url hai jahan se hum request bhejenge yani frontend ka url...ye isliye hai taki backend sirf frontend se hi request accept kare aur kisi aur url se na kare...ye security ke liye bhi hai
     credentials: true //ye isliye hai taki backend frontend ko response bhej sake...agar ye false hota to backend frontend ko response nahi bhej pata...ye isliye bhi hai taki backend frontend ke cookies ko access kar sake...cookies me token store hoga to backend us token ko access kar sakega aur uske basis pe user ko authenticate kar sakega
 }))
 app.use("/api/auth", authRouter) //ye vo hai jo url me dikhega.../api/auth ke baad vo aayega  jo hum us time krre honge jaise signup ya login 
