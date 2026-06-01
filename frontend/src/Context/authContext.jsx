@@ -1,16 +1,16 @@
 import React,{createContext} from 'react'
-export const AuthDataContext = createContext() 
+export const authDataContext = createContext() 
 
 function authContext({children}) {
-    let serverUrl = "http://localhost:8000"
+let serverUrl = "http://localhost:8000"
     let value={
         serverUrl 
     }
   return (
     <div>
-        <AuthDataContext.Provider value={value}>
+        <authDataContext.Provider value={value}>
             {children}
-        </AuthDataContext.Provider>
+        </authDataContext.Provider>
     </div>
   )
 }

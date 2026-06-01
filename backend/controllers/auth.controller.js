@@ -18,7 +18,7 @@ try{//button humne auth.route me banaya uski functionality hum yahan likhenge
     let token = await genToken(user._id)
     res.cookie("token", token,{//token ko cookie ke andar pass krna hai 
         httpOnly:true,//jab local pe run karenge to http pe run hoga lekin jab deploy kr denge tab https pe run hoga
-        secure:process.env.NODE_ENVIRONMENT = "production",
+        secure:process.env.NODE_ENVIRONMENT === "production",
         sameSite : "strict",
         maxAge : 7 * 24 * 60 * 60 * 1000
     })
@@ -48,7 +48,7 @@ try{
     let token = await genToken(user._id)
     res.cookie("token", token,{//token ko cookie ke andar pass krna hai 
         httpOnly:true,//jab local pe run karenge to http pe run hoga lekin jab deploy kr denge tab https pe run hoga
-        secure:process.env.NODE_ENVIRONMENT = "production",
+        secure:process.env.NODE_ENVIRONMENT === "production",
         sameSite : "strict",
         maxAge : 7 * 24 * 60 * 60 * 1000
     })

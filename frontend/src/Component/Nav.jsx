@@ -13,7 +13,7 @@ import { IoBedOutline } from "react-icons/io5";
 import { GiWoodCabin } from "react-icons/gi";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
-import { AuthDataContext } from '../Context/authContext';
+import { authDataContext } from '../Context/AuthContext';
 import { useContext } from 'react';
 import axios from 'axios';
 
@@ -26,7 +26,7 @@ import axios from 'axios';
 function Nav() {
   let [showpopup, setshowpopup] = useState(false);
   let navigate = useNavigate();
-  let{serverUrl} = useContext(AuthDataContext)
+  let{serverUrl} = useContext(authDataContext)
 
   const handleLogout = async () => {
     try{
