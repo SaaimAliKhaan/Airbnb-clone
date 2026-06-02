@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./routes/user.route.js";
+import listingRouter from "./routes/listing.route.js";
 dotenv.config()
 console.log(process.env.MONGODB_URL); 
 let port = process.env.PORT || 8000
@@ -25,6 +26,7 @@ app.use(cors({
 }))
 app.use("/api/auth", authRouter) //ye vo hai jo url me dikhega.../api/auth ke baad vo aayega  jo hum us time krre honge jaise signup ya login 
 app.use("/api/user", userRouter)
+app.use("/api/listing", listingRouter)
 
 app.listen(port/*is port pe get request krne wale hain*/ , ()=>{//get request to krre h to use kahin na kahin to karana padega yani server to banana padega 
     connectDb()
